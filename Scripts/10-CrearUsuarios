@@ -1,0 +1,45 @@
+------------ Crear usuarios----------
+CREATE USER 'usuario_norte'@'%' IDENTIFIED BY 'carnitas';
+CREATE USER 'usuario_sur'@'%' IDENTIFIED BY 'tlayudas';
+CREATE USER 'usuario_centro'@'%' IDENTIFIED BY 'tacos';
+
+--- Usuario NORTE ---
+GRANT SELECT, INSERT, UPDATE ON db_jevanca.tbl_inventario_norte TO 'usuario_norte'@'%';
+GRANT SELECT, INSERT, UPDATE ON db_jevanca.tbl_compra_norte TO 'usuario_norte'@'%';
+GRANT SELECT, INSERT, UPDATE ON db_jevanca.tbl_detalle_compra_norte TO 'usuario_norte'@'%';
+
+-- Catálogos replicados (solo lectura)
+GRANT SELECT ON db_jevanca.tbl_productos TO 'usuario_norte'@'%';
+GRANT SELECT ON db_jevanca.tbl_proveedor TO 'usuario_norte'@'%';
+GRANT SELECT ON db_jevanca.cat_zona TO 'usuario_norte'@'%';
+GRANT SELECT ON db_jevanca.tbl_sucursales TO 'usuario_norte'@'%';
+
+-- Usuario SUR
+GRANT SELECT, INSERT, UPDATE ON db_jevanca.tbl_inventario_sur TO 'usuario_sur'@'%';
+GRANT SELECT, INSERT, UPDATE ON db_jevanca.tbl_compra_sur TO 'usuario_sur'@'%';
+GRANT SELECT, INSERT, UPDATE ON db_jevanca.tbl_detalle_compra_sur TO 'usuario_sur'@'%';
+
+-- Catálogos replicados (solo lectura)
+GRANT SELECT ON db_jevanca.tbl_productos TO 'usuario_sur'@'%';
+GRANT SELECT ON db_jevanca.tbl_proveedor TO 'usuario_sur'@'%';
+GRANT SELECT ON db_jevanca.cat_zona TO 'usuario_sur'@'%';
+GRANT SELECT ON db_jevanca.tbl_sucursales TO 'usuario_sur'@'%';
+
+
+---Usuario centro ----
+GRANT ALL PRIVILEGES ON db_jevanca.* TO 'usuario_centro'@'%';
+
+FLUSH PRIVILEGES;
+
+---------------- Ver los privilegios asignados a cada usuario-------------------
+SELECT User, Host FROM mysql.user;
+
+
+SELECT 
+    * 
+FROM 
+    information_schema.table_privileges 
+ORDER BY 
+    grantee, table_schema, table_name;
+
+
